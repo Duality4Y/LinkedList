@@ -22,6 +22,7 @@ $ scons
 
 scons for development and building.
 (scons is buildscripts with python)
+and a compiler (in my case gcc).
 
 ### Installing
 
