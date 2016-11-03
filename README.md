@@ -41,7 +41,7 @@ $ scons
 And execute ```build/linkedlist```
 no feedback meens all tests pass.
 
-## usage.
+## usage
 
 look at the tests under ```src/main.cpp```
 on how to use the code.
