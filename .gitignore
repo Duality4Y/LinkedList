@@ -1,0 +1,4 @@
+build/
+.sconsign.dblite
+LinkedList.sublime-project
+LinkedList.sublime-workspace
