@@ -25,7 +25,7 @@ scons for development and building.
 
 ### Installing
 
-To use the code make sure your compiler finds ```cpp include/linkedlist.h```
+To use the code make sure your compiler finds ```c++ include/linkedlist.h```
 And then simply include the code:
 ```
 #include <linkedlist.h>
@@ -48,7 +48,7 @@ it is fairly straightforward.
 operations that can be done include:
 append, prepend, pop, push, insert, and getting the length() of the list.
 something really simple might look like:
-```cpp
+```c++
 #include <linkedlist.h>
 
 LinkedList<int> alist;
