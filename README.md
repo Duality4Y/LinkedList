@@ -25,9 +25,12 @@ scons for development and building.
 
 ### Installing
 
-To use the code make sure your compiler finds ```c++ include/linkedlist.h```
-And then simply include the code:
+To use the code make sure your compiler finds
+```c++
+include/linkedlist.h
 ```
+And then simply include the code:
+```c++
 #include <linkedlist.h>
 ```
 
