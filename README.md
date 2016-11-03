@@ -40,6 +40,40 @@ $ scons
 And execute ```build/linkedlist```
 no feedback meens all tests pass.
 
+## usage.
+
+look at the tests under ```src/main.cpp```
+on how to use the code.
+it is fairly straightforward.
+operations that can be done include:
+append, prepend, pop, push, insert, and getting the length() of the list.
+something really simple might look like:
+```cpp
+#include <linkedlist.h>
+
+LinkedList<int> alist;
+
+// [42]
+alist.append(42);
+
+// [41, 42]
+alist.prepend(41);
+
+// [40, 41, 42]
+// returns: true if inserting inside list else false
+alist.insert(0, 40);
+
+// [40, 41, 42, 43]
+alist.push(0, 43);
+
+// [40, 41, 42]
+// returns: 43
+alist.pop();
+
+// returns 3
+alist.length();
+```
+
 ## development
 
 if there is a problem for example a test fails or something else happens.

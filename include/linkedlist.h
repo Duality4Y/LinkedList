@@ -17,8 +17,8 @@ public:
     node_ptr tail;
 
     LinkedList();
-    bool insert(int, T);
     node_ptr new_node();
+    bool insert(int, T);
     int64_t length();
     void prepend(T);
     void append(T);
