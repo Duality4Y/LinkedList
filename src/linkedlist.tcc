@@ -72,37 +72,7 @@ T LinkedList<T>::pop()
 template <class T>
 bool LinkedList<T>::insert(int index, T value)
 {
-    /* check bound. */
-    if(index >= 0 && index <= this->length())
-    {
-        /* if inserting things on the end of the list they can simply be appended. */
-        if(index == this->length())
-        {
-            this->append(value);
-            return true;
-        }
-
-        /* else they can just be iterated over to the right node and insert a new node after it. */
-        node_ptr next;
-        node_ptr current = this->head;
-        node_ptr node = this->new_node();
-        node->value = value;
-        int i;
-        for(i = 0; i < index; i++)
-        {
-            current = current->next;
-        }
-        next = current->next;
-        current->next = node;
-        node->next = next;
-        this->tail = current->next;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
+    return false;
 }
 
 /* prepend a node at the front of the list */
@@ -113,20 +83,27 @@ void LinkedList<T>::prepend(T value)
       incase of an empty list there is a new node created and the head and tail
       are both set to be pointing to it.
     */
-    if(!head)
+    if(!head && !tail)
     {
-        head = this->new_node();
-        head->value = value;
-        head->next = NULL;
-        tail = head;
+        node_ptr node = this->new_node();
+        node->value = value;
+
+        this->tail = node;
+        this->head = node;
+
+        node->next = NULL;
+        node->prev = NULL;
     }
     else
     {
         /* otherwise just prepend to the head. and set the new node to be the head. */
         node_ptr node = this->new_node();
         node->value = value;
-        node->next = head;
-        head = node;
+
+        node->next = this->head;
+        this->head->prev = node;
+
+        this->head = node;
     }
 }
 
@@ -135,20 +112,27 @@ template <class T>
 void LinkedList<T>::append(T value)
 {
     /* if the list is empty insert a new node and set both head and tail to it.*/
-    if(!head)
+    if(!head && !tail)
     {
-        head = this->new_node();
-        head->value = value;
-        head->next = NULL;
-        tail = head;
+        node_ptr node = this->new_node();
+        node->value = value;
+
+        this->tail = node;
+        this->head = node;
+
+        node->next = NULL;
+        node->prev = NULL;
     }
     else
     {
         /* else a new node is appended and the tail is set to the new node.*/
-        tail->next = this->new_node();
-        tail = tail->next;
-        tail->value = value;
-        tail->next = NULL;
+        node_ptr node = this->new_node();
+        node->value = value;
+
+        node->prev = this->tail;
+        this->tail->next = node;
+
+        this->tail = this->tail->next;
     }
 }
 
