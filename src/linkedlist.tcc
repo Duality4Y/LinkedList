@@ -72,6 +72,48 @@ T LinkedList<T>::pop()
 template <class T>
 bool LinkedList<T>::insert(int index, T value)
 {
+    /* if there is no list or we are inserting at the end.
+       then a node can simply be appended.
+    */
+    if(!this->length() || index == this->length())
+    {
+        this->append(value);
+        return true;
+    }
+
+    if(index >= 0 && index < this->length())
+    {
+        node_ptr node = this->new_node();
+        node->value = value;
+
+        node_ptr next = this->new_node();
+        node_ptr prev = this->new_node();
+        node_ptr current = this->head;
+        int i;
+        for(i = 0; i < index; i++)
+            current = current->next;
+
+
+        next = current->next;
+        prev = current->prev;
+
+        if(!next)
+        {
+            node->prev = tail;
+            tail->next = node;
+            tail = node;
+        }
+        else
+        {
+
+            current->next = node;
+            node->prev = current;
+
+            node->next = next;
+            next->prev = node;
+        }
+        return true;
+    }
     return false;
 }
 
