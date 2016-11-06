@@ -72,7 +72,7 @@ T LinkedList<T>::pop()
 template <class T>
 bool LinkedList<T>::insert(int index, T value)
 {
-    /* if there is no list or we are inserting at the end.
+    /* if there is no list or inserting at the end
        then a node can simply be appended.
     */
     if(!this->length() || index == this->length())
@@ -99,7 +99,7 @@ bool LinkedList<T>::insert(int index, T value)
         next = current->next;
         prev = current->prev;
         /* 
-            no next node means we are inserting a new tail.
+            no next node means inserting a new tail.
             else insert a node between two nodes.
         */
         if(!next)
