@@ -1,9 +1,11 @@
 # LinkedList
 
 This is a implementation of a LinkedList in C++.
-Currently only a singly linked list.
-Goal was to learn what templates are how to use them.
-And how memory management could be done in C++, through the use of shared_ptr.
+It is implemented as a Doubly linked list.
+Goal was to learn what templates are how to use them, and how the work.
+And I learned that C++ has this awesome feature, an object called shared_ptr,
+that does refcounting for you, so you don't have to keep track of your pointers.
+Shared_ptr calles the appropriate destructors, when pointer refcount reaches zero.
 
 ## Getting Started
 
@@ -46,34 +48,25 @@ no feedback meens all tests pass.
 
 look at the tests under ```src/main.cpp```
 on how to use the code.
+an example is provided in ```example/``` directory.
 it is fairly straightforward.
 operations that can be done include:
 append, prepend, pop, push, insert, and getting the length() of the list.
-something really simple might look like:
-```c++
-#include <linkedlist.h>
 
-LinkedList<int> alist;
-
-// [42]
-alist.append(42);
-
-// [41, 42]
-alist.prepend(41);
-
-// [40, 41, 42]
-// returns: true if inserting inside list else false
-alist.insert(0, 40);
-
-// [40, 41, 42, 43]
-alist.push(0, 43);
-
-// [40, 41, 42]
-// returns: 43
-alist.pop();
-
-// returns 3
-alist.length();
+the output of example1.cpp looks like:
+```
+alist.append(0)
+[0]
+alist.prepend(1)
+[1, 0]
+alist.insert(0, 42)
+[1, 42, 0]
+alist.insert(0, 43)
+[1, 43, 42, 0]
+alist.pop()
+[1, 43, 42]
+alist.push(80)
+[1, 43, 42, 80]
 ```
 
 ## development

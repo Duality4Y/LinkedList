@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <assert.h>
 
+#include <iostream>
+#include <assert.h>
 #include <linkedlist.h>
 
 void test_append()
@@ -203,6 +203,7 @@ void test_new_node()
 
 int main(void)
 {
+    std::cout << "Running Tests!" << std::endl;
     test_new_node();
     test_prepend();
     test_append();
@@ -210,6 +211,7 @@ int main(void)
     test_insert();
     test_push();
     test_pop();
+    std::cout << "All Tests Passed!" << std::endl;
 
     return 0;
 }

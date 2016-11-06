@@ -1,8 +1,25 @@
+"""
+    build script by: Duality
+    github: https://github.com/Duality4Y
+    git: https://github.com/TkkrLab/scons-build-base
+
+    three modes for building:
+
+    devbuild: scons devbuild
+    build with special debugging flags.
+
+    libbuild: scons libbuild
+    builds a static library.
+
+    and normal scons
+    which builds with no special flags.
+"""
+
 from glob import glob
 import os
 import fnmatch
 
-project_name = 'linkedlist'
+project_name = 'LinkedList'
 
 prefix = ''
 cc = prefix + 'gcc'
@@ -12,6 +29,7 @@ ranlib = prefix + 'ranlib'
 
 build_dir = 'build/'
 src_dir = 'src/'
+src_ext = '.cpp'
 include_dir = 'include/'
 static_lib_dir = 'lib/'
 lib_dir = 'libraries/'
@@ -68,8 +86,6 @@ env['CCFLAGS'] = ccflags
 env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CPPPATH=[include_dir])
 
-# lib_build = ARGUMENTS.get('libbuild', 0)
-
 # add all the directories in include
 for root, dirnames, filenames in os.walk(include_dir):
     for dirname in dirnames:
@@ -79,8 +95,10 @@ for root, dirnames, filenames in os.walk(include_dir):
 # run for local libs
 if len(local_libs):
     for lib in local_libs:
-        env.Append(CPPPATH=[lib_dir + lib + '/' + 'include/'])
-        env.Append(LIBPATH=[lib_dir + lib + '/' + 'lib/'])
+        cppath = os.path.join(lib_dir, lib, include_dir)
+        libpath = os.path.join(lib_dir, lib, static_lib_dir)
+        env.Append(CPPPATH=[cppath])
+        env.Append(LIBPATH=[libpath])
         env.Append(LIBS=[lib])
 
 # run for system libs
@@ -94,23 +112,25 @@ if len(system_libs):
 obj_targets = []
 src_files = []
 for root, dirnames, filenames in os.walk(src_dir):
-    for filename in fnmatch.filter(filenames, '*.cpp'):
+    for filename in fnmatch.filter(filenames, "*" + src_ext):
         if ('libbuild' in COMMAND_LINE_TARGETS) and ("main" in filename):
             print("filename: %s" % filename)
         else:
             src_files.append(os.path.join(root, filename))
 
 for src in src_files:
-    target = src.replace('.cpp', '.o')
-    obj_targets.append(build_dir + target)
+    target = src.replace(src_ext, '.o')
+    obj_targets.append(os.path.join(build_dir, target))
 
 objects = []
 for (obj_target, src_file) in zip(obj_targets, src_files):
     objects.append(env.Object(target=obj_target, source=src_file))
 
-program = env.Program(target=build_dir + project_name, source=objects)
-static = env.StaticLibrary(target=static_lib_dir + project_name, source=objects)
+program = env.Program(target=os.path.join(build_dir, project_name),
+                      source=objects)
 
+static = env.StaticLibrary(target=os.path.join(static_lib_dir, project_name),
+                           source=objects)
 
 env.Alias('libbuild', static)
 env.Alias('devbuild', program)
