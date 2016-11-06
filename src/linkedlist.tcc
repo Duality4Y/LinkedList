@@ -86,9 +86,11 @@ bool LinkedList<T>::insert(int index, T value)
         node_ptr node = this->new_node();
         node->value = value;
 
-        node_ptr next = this->new_node();
-        node_ptr prev = this->new_node();
+        node_ptr next;
+        node_ptr prev;
         node_ptr current = this->head;
+
+        /* Iterate over to the right place to insert. */
         int i;
         for(i = 0; i < index; i++)
             current = current->next;
@@ -96,7 +98,10 @@ bool LinkedList<T>::insert(int index, T value)
 
         next = current->next;
         prev = current->prev;
-
+        /* 
+            no next node means we are inserting a new tail.
+            else insert a node between two nodes.
+        */
         if(!next)
         {
             node->prev = tail;
