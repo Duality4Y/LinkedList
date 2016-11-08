@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 #include <assert.h>
 #include <linkedlist.h>
 
@@ -242,6 +243,11 @@ void test_reverse_loop()
     }
 
     assert(ints == result);
+}
+
+void test_itteration()
+{
+
 }
 
 int main(void)
