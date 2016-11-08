@@ -13,17 +13,23 @@ public:
     typedef std::shared_ptr<node_t> node_ptr;
     typedef LinkedList<T>::node_t node;
 
-    node_ptr head;
-    node_ptr tail;
+    node_ptr list_head;
+    node_ptr list_tail;
 
     LinkedList();
     node_ptr new_node();
+    
     bool insert(int, T);
     int64_t length();
     void prepend(T);
     void append(T);
     void push(T);
     T pop();
+
+    node_ptr start();
+    node_ptr end();
+    node_ptr next(node_ptr);
+    node_ptr prev(node_ptr);
 };
 
 // so ugly but this way the user won't have to
