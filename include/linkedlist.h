@@ -11,6 +11,7 @@ class LinkedList
 public:
     struct node_t;
     typedef std::shared_ptr<node_t> node_ptr;
+    typedef std::weak_ptr<node_t> weak_node_ptr;
     typedef LinkedList<T>::node_t node;
 
     node_ptr list_head;
@@ -29,7 +30,7 @@ public:
     node_ptr start();
     node_ptr end();
     node_ptr next(node_ptr);
-    node_ptr prev(node_ptr);
+    weak_node_ptr prev(node_ptr);
 };
 
 // so ugly but this way the user won't have to

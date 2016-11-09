@@ -4,7 +4,7 @@ struct LinkedList<T>::node_t
 {
     T value;
     node_ptr next;
-    node_ptr prev;
+    std::weak_ptr<node_t> prev;
 };
 
 template <class T>
@@ -40,7 +40,7 @@ bool LinkedList<T>::insert(int index, T value)
         node->value = value;
 
         node_ptr next;
-        node_ptr prev;
+        std::weak_ptr<node_t> prev;
         node_ptr current = this->list_head;
 
         /* Iterate over to the right place to insert. */
@@ -108,7 +108,7 @@ void LinkedList<T>::prepend(T value)
         this->list_head = node;
 
         node->next = NULL;
-        node->prev = NULL;
+        node->prev = node->next;
     }
     else
     {
@@ -137,7 +137,7 @@ void LinkedList<T>::append(T value)
         this->list_head = node;
 
         node->next = NULL;
-        node->prev = NULL;
+        node->prev = node->next;
     }
     else
     {
@@ -218,7 +218,7 @@ typename LinkedList<T>::node_ptr LinkedList<T>::next(LinkedList<T>::node_ptr nod
 }
 
 template <class T>
-typename LinkedList<T>::node_ptr LinkedList<T>::prev(LinkedList<T>::node_ptr node)
+typename LinkedList<T>::weak_node_ptr LinkedList<T>::prev(LinkedList<T>::node_ptr node)
 {
     return node->prev;
 }
