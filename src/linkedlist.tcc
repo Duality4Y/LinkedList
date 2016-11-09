@@ -4,7 +4,7 @@ struct LinkedList<T>::node_t
 {
     T value;
     node_ptr next;
-    std::weak_ptr<node_t> prev;
+    weak_node_ptr prev;
 };
 
 template <class T>
@@ -12,6 +12,7 @@ LinkedList<T>::LinkedList()
 {
     this->list_head = NULL;
     this->list_tail = NULL;
+    this->list_length = 0;
 }
 
 template <class T>
@@ -40,7 +41,7 @@ bool LinkedList<T>::insert(int index, T value)
         node->value = value;
 
         node_ptr next;
-        std::weak_ptr<node_t> prev;
+        weak_node_ptr prev;
         node_ptr current = this->list_head;
 
         /* Iterate over to the right place to insert. */
@@ -70,6 +71,7 @@ bool LinkedList<T>::insert(int index, T value)
             node->next = next;
             next->prev = node;
         }
+        this->list_length += 1;
         return true;
     }
     return false;
@@ -79,16 +81,17 @@ bool LinkedList<T>::insert(int index, T value)
 template <class T>
 int64_t LinkedList<T>::length()
 {
-    if(!list_head and !list_tail)
-        return 0;
-    if(list_head == list_tail)
-        return 1;
+    // if(!list_head and !list_tail)
+    //     return 0;
+    // if(list_head == list_tail)
+    //     return 1;
 
-    // iterate over the list and return the count of items on it.
-    int64_t count = 0;
-    for(node_ptr i = list_head; i; i = i->next)
-        count++;
-    return count;
+    // // iterate over the list and return the count of items on it.
+    // int64_t count = 0;
+    // for(node_ptr i = list_head; i; i = i->next)
+    //     count++;
+    // return count;
+    return this->list_length;
 }
 
 /* prepend a node at the front of the list */
@@ -121,6 +124,8 @@ void LinkedList<T>::prepend(T value)
 
         this->list_head = node;
     }
+
+    this->list_length += 1;
 }
 
 /* append a new node to the end of the list.*/
@@ -150,6 +155,8 @@ void LinkedList<T>::append(T value)
 
         this->list_tail = this->list_tail->next;
     }
+
+    this->list_length += 1;
 }
 
 /* pushes a node onto the end of the list. */
@@ -177,9 +184,13 @@ T LinkedList<T>::pop()
     if(this->length() == 1)
     {
         node->value = this->list_head->value;
+        T value = T(node->value);
         this->list_head = NULL;
         this->list_tail = NULL;
-        return node->value;
+
+        this->list_length -= 1;
+
+        return value;
     }
     else
     {
@@ -190,35 +201,24 @@ T LinkedList<T>::pop()
         node_ptr current;
         for(current = this->list_head; current->next->next; current = current->next);
         
-        node->value = current->next->value;
+        T value = T(current->next->value);
         this->list_tail = current;
-        // TODO keep track of nodes that are removed so that they can be freed.
         current->next = NULL;
-        
-        return node->value;
+
+        this->list_length -= 1;
+
+        return value;
     }
 }
 
 template <class T>
-typename LinkedList<T>::node_ptr LinkedList<T>::start()
+typename LinkedList<T>::node_ptr LinkedList<T>::head()
 {
     return this->list_head;
 }
 
 template <class T>
-typename LinkedList<T>::node_ptr LinkedList<T>::end()
+typename LinkedList<T>::node_ptr LinkedList<T>::tail()
 {
     return this->list_tail;
-}
-
-template <class T>
-typename LinkedList<T>::node_ptr LinkedList<T>::next(LinkedList<T>::node_ptr node)
-{
-    return node->next;
-}
-
-template <class T>
-typename LinkedList<T>::weak_node_ptr LinkedList<T>::prev(LinkedList<T>::node_ptr node)
-{
-    return node->prev;
 }

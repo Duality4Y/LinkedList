@@ -16,6 +16,7 @@ public:
 
     node_ptr list_head;
     node_ptr list_tail;
+    int64_t list_length;
 
     LinkedList();
     node_ptr new_node();
@@ -27,10 +28,8 @@ public:
     void push(T);
     T pop();
 
-    node_ptr start();
-    node_ptr end();
-    node_ptr next(node_ptr);
-    weak_node_ptr prev(node_ptr);
+    node_ptr head();
+    node_ptr tail();
 };
 
 // so ugly but this way the user won't have to
