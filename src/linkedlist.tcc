@@ -8,14 +8,6 @@ struct LinkedList<T>::node_t
 };
 
 template <class T>
-LinkedList<T>::LinkedList()
-{
-    this->list_head = NULL;
-    this->list_tail = NULL;
-    this->list_length = 0;
-}
-
-template <class T>
 typename LinkedList<T>::node_ptr LinkedList<T>::new_node()
 {
     node_ptr node(new LinkedList<T>::node());
@@ -221,4 +213,28 @@ template <class T>
 typename LinkedList<T>::node_ptr LinkedList<T>::tail()
 {
     return this->list_tail;
+}
+
+template <class T>
+typename LinkedList<T>::Iterator begin()
+{
+    return LinkedList<T>::Iterator(this->head);
+}
+
+template <class T>
+typename LinkedList<T>::Iterator end()
+{
+    return LinkedList<T>::Iterator(this->tail);
+}
+
+template <class T>
+typename LinkedList<T>::Iterator rbegin()
+{
+    return LinkedList<T>::Iterator(this->tail);
+}
+
+template <class T>
+typename LinkedList<T>::Iterator rend()
+{
+    return LinkedList<T>::Iterator(this->head);
 }

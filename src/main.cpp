@@ -203,6 +203,43 @@ void test_new_node()
     }
 }
 
+void test_copy_construction()
+{
+    LinkedList<int> alist;
+    for(int i = 0; i < 10; i++)
+        alist.push(i);
+
+    LinkedList<int> blist = LinkedList<int>(alist);
+    assert(&alist != &blist);
+
+    LinkedList<int>::node_ptr a, b;
+    for(a = alist.head(),
+        b = blist.head();
+        a && b;
+        a = a->next,
+        b = b->next)
+    {
+        assert(a == b);
+    }
+
+    LinkedList<int> clist;
+    for(int i = 0; i < 10; i++)
+        clist.push(i);
+
+    LinkedList<int> dlist = clist;
+    assert(&clist != &dlist);
+
+    LinkedList<int>::node_ptr c, d;
+    for(c = clist.head(),
+        d = dlist.head();
+        c && d;
+        c = c->next,
+        d = d->next)
+    {
+        assert(c == d);
+    }
+}
+
 void test_forward_iteration()
 {
     int result = 0;
@@ -214,11 +251,13 @@ void test_forward_iteration()
         alist.append(i);
     }
 
-    LinkedList<int>::iter i;
+    LinkedList<int>::Iterator i;
     for(i = alist.begin(); i != alist.end(); i++)
     {
         result += (*i);
     }
+
+    assert(correct_result == result);
 }
 
 void test_backward_iteration()
@@ -231,6 +270,14 @@ void test_backward_iteration()
         correct_result += i;
         alist.append(i);
     }
+
+    LinkedList<int>::Iterator i;
+    for(i = alist.rbegin(); i != alist.rend(); i--)
+    {
+        result += (*i);
+    }
+
+    assert(correct_result == result);
 }
 
 int main(void)
@@ -243,8 +290,9 @@ int main(void)
     test_insert();
     test_push();
     test_pop();
-    test_forward_iteration();
-    test_backward_iteration();
+    test_copy_construction();
+    // test_forward_iteration();
+    // test_backward_iteration();
     std::cout << "All Tests Passed!" << std::endl;
 
     return 0;

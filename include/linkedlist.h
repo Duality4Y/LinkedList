@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <memory>
+#include <iterator>
 
 template <class T>
 class LinkedList
@@ -18,7 +19,19 @@ public:
     node_ptr list_tail;
     int64_t list_length;
 
-    LinkedList();
+    class Iterator
+    {
+    public:
+        LinkedList<T>::node_ptr pos;
+        Iterator(node_ptr pos): pos(pos){};
+    };
+
+    LinkedList()
+        : list_head(NULL)
+        , list_tail(NULL)
+        , list_length(0)
+    { };
+    
     node_ptr new_node();
     
     bool insert(int, T);
@@ -30,6 +43,11 @@ public:
 
     node_ptr head();
     node_ptr tail();
+
+    Iterator begin();
+    Iterator end();
+    Iterator rbegin();
+    Iterator rend();
 };
 
 // so ugly but this way the user won't have to
