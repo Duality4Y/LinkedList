@@ -19,11 +19,17 @@ public:
     node_ptr list_tail;
     int64_t list_length;
 
-    class Iterator
+    template <class IT>
+    class Iterator: public std::iterator<std::forward_iterator_tag, IT>
     {
+        typedef Iterator<IT> iterator;
+        IT _pos;
     public:
-        LinkedList<T>::node_ptr pos;
-        Iterator(node_ptr pos): pos(pos){};
+        Iterator(): _pos(nullptr) {};
+        Iterator(IT pos): pos(pos) {};
+        ~Iterator() {};
+
+        
     };
 
     LinkedList()
