@@ -245,10 +245,59 @@ void test_forward_loop()
 //     assert(ints == result);
 // }
 
-// void test_itteration()
-// {
+void test_indexing()
+{
+    // reading from index
+    LinkedList<int> alist;
+    for(int i = 0; i < 3; i++)
+    {
+        alist.append(i);
+    }
 
-// }
+    assert(alist[0] == 0);
+    assert(alist[1] == 1);
+    assert(alist[2] == 2);
+
+    bool isThrown = false;
+    try
+    {
+        alist[-1];
+    }
+    catch (std::runtime_error e)
+    {
+        isThrown = true;
+    }
+    assert(isThrown == true);
+
+    isThrown = false;
+    try
+    {
+        alist[3];
+    }
+    catch (std::runtime_error e)
+    {
+        isThrown = true;
+    }
+    assert(isThrown == true);
+
+    // writing to index
+    LinkedList<int> blist;
+
+    for(int i = 0; i < 3; i++)
+    {
+        blist.append(32);
+    }
+
+    blist[0] = 0;
+    blist[1] = 1;
+    blist[2] = 2;
+
+    for(int i = 0; i < 3; i++)
+    {
+        assert(blist[i] == i);
+    }
+
+}
 
 int main(void)
 {
@@ -260,6 +309,8 @@ int main(void)
     test_insert();
     test_push();
     test_pop();
+    test_indexing();
+
     // test_forward_loop();
     // test_reverse_loop();
     std::cout << "All Tests Passed!" << std::endl;

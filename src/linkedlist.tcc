@@ -200,6 +200,21 @@ T LinkedList<T>::pop()
 }
 
 template <class T>
+T& LinkedList<T>::operator[] (const int index)
+{
+    if(index < 0 || index >= this->length())
+    {
+         throw std::runtime_error("Error: out of bounds indexing. \n");
+    }
+    LinkedList<T>::node_ptr i = this->list_head;
+    for(int c = 0; c < index; c++)
+    {
+        i = i->next;
+    }
+    return i->value;
+}
+
+template <class T>
 typename LinkedList<T>::node_ptr LinkedList<T>::start()
 {
     return this->list_head;

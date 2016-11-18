@@ -27,6 +27,8 @@ public:
     void push(T);
     T pop();
 
+    T& operator[] (const int index);
+
     node_ptr start();
     node_ptr end();
     node_ptr next(node_ptr);
