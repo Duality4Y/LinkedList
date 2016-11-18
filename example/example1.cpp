@@ -38,5 +38,11 @@ int main(void)
     printf("list.push(80)\n");
     list.push(80);
     print_list(list);
+    printf("list[0] = %d\n", list[0]);
+    print_list(list);
+    printf("operation list[0] = 42; \n");
+    list[0] = 42;
+    print_list(list);
+
     return 0;
 }

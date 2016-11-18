@@ -52,6 +52,8 @@ an example is provided in ```example/``` directory.
 it is fairly straightforward.
 operations that can be done include:
 append, prepend, pop, push, insert, and getting the length() of the list.
+also included is indexing by subscript,
+which throws a exception if you try to index out of bounds.
 
 the output of example1.cpp looks like:
 ```
@@ -67,6 +69,11 @@ alist.pop()
 [1, 43, 42]
 alist.push(80)
 [1, 43, 42, 80]
+alist[0]
+0
+alist[0] = 42
+[42, 43, 42, 80]
+
 ```
 
 ## development
