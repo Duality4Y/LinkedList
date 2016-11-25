@@ -277,6 +277,11 @@ void test_indexing()
         assert(blist[i] == i);
     }
 
+    for(unsigned int i = 0; i < 3; i++)
+    {
+        assert(blist[i] == (int)i);
+    }
+
 }
 
 int main(void)

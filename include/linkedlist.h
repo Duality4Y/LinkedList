@@ -28,6 +28,7 @@ public:
     T pop();
 
     T& operator[] (const int index);
+    T& operator[] (const unsigned int index);
 
     node_ptr start();
     node_ptr end();
